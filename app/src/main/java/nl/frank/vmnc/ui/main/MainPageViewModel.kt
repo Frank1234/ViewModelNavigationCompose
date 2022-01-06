@@ -9,8 +9,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import nl.frank.vmnc.ui.nav.NavManager
-import nl.frank.vmnc.ui.nav.model.NavigationState
+import nl.frank.vmnc.ui.nav.NavigationState
+import nl.frank.vmnc.ui.nav.RouteNavigator
 import javax.inject.Inject
 
 const val KEY_MAIN_PAGE_INDEX = "MAIN_PAGE_INDEX"
@@ -18,8 +18,8 @@ const val KEY_MAIN_PAGE_INDEX = "MAIN_PAGE_INDEX"
 @HiltViewModel
 class MainPageViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val navManager: NavManager,
-) : ViewModel() {
+    private val routeNavigator: RouteNavigator,
+) : ViewModel(), RouteNavigator by routeNavigator { // I strongly prefer delegation over inheritance
 
     private val index = savedStateHandle.get<Int>(KEY_MAIN_PAGE_INDEX)
         ?: throw IllegalArgumentException("Mandatory argument $KEY_MAIN_PAGE_INDEX is missing on opening MainPage.")
@@ -31,14 +31,14 @@ class MainPageViewModel @Inject constructor(
 
     fun onNextClicked() {
         viewModelScope.launch {
-            navManager.navigate(NavigationState.NavigateToRoute(MainPageRoute.get(index + 1)))
+            navigate(NavigationState.NavigateToRoute(MainPageRoute.get(index + 1)))
         }
     }
 
     fun onNextWithDelayClicked() {
         viewModelScope.launch {
-            delay(5000)
-            navManager.navigate(NavigationState.NavigateToRoute(MainPageRoute.get(index + 1)))
+            delay(4000)
+            navigate(NavigationState.NavigateToRoute(MainPageRoute.get(index + 1)))
         }
     }
 

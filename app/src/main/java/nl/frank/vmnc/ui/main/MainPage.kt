@@ -13,27 +13,30 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NamedNavArgument
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.composable
 import nl.frank.vmnc.R
+import nl.frank.vmnc.ui.nav.NavRoute
 
-object MainPageRoute {
+/**
+ * Every screen has a route, so that we don't have to add the route setup of all screens to the [NavigationComponent].
+ *
+ * Inherits NavRoute, to be able to navigate away from this screen. All navigation logic is in there.
+ */
+object MainPageRoute : NavRoute<MainPageViewModel> {
 
-    val route = "mainPage/{$KEY_MAIN_PAGE_INDEX}/"
+    override val route = "mainPage/{$KEY_MAIN_PAGE_INDEX}/"
 
-    fun composable(
-        builder: NavGraphBuilder,
-        arguments: List<NamedNavArgument> = listOf()
-    ) {
-        builder.composable(route, arguments) { // TODO args not needed in route?
-            MainPage(hiltViewModel())
-        }
-    }
+    @Composable
+    override fun viewModel(): MainPageViewModel = hiltViewModel()
+
+    @Composable
+    override fun Content(viewModel: MainPageViewModel) = MainPage(viewModel)
 
     fun get(index: Int) = route.replace("{$KEY_MAIN_PAGE_INDEX}", "$index")
 }
 
+/**
+ * Just your average Composable, nothing special here.
+ */
 @Composable
 fun MainPage(
     viewModel: MainPageViewModel
