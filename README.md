@@ -2,9 +2,9 @@
 
 # Compose Navigation triggered from ViewModel
 
-An example app build with Jetpack Compose in which navigation is triggered from the ViewModel.
+An example app build with Jetpack Compose in which navigation is triggered from the `ViewModel`.
 
-This example abstracts away navigation logic to centralized classes. This example uses **state** to
+This example abstracts away most navigation logic from the `View` and `ViewModel`. This example uses **state** to
 navigate, but one could use events if prefered.
 
 ## Alternatives
