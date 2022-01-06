@@ -1,10 +1,6 @@
-        // TODO check proper argument handling
-
-// TODO clean up this readme
+// TODO check proper argument handling
 
 # Compose Navigation triggered from ViewModel
-
-// TODO currently old events are overwritten, that's state....
 
 An example app build with Jetpack Compose in which navigation is triggered from the ViewModel.
 
@@ -54,13 +50,13 @@ Copy paste these classes into your project:
 
 - // TODO
 
-To use them
+To use them:
 
 - Your ViewModel must implement a
-  Navigator [interface by delegation]("https://kotlinlang.org/docs/delegation.html), as done
+  RouteNavigator [interface by delegation]("https://kotlinlang.org/docs/delegation.html), as done
   in [MainPageViewModel]("./app/src/main/java/nl/frank/vmnc/ui/main/MainPageViewModel.kt").
 - Your component's Route must
   implement [NavRoute]("./app/src/main/java/nl/frank/vmnc/ui/nav/NavRoute.kt"), as done
   in [MainPageRoute]("./app/src/main/java/nl/frank/vmnc/ui/main/MainPage.kt").
 
-// TODO ook 1 maken voor het toevoegen van transitie animaties?
+// TODO ook projectje maken voor het toevoegen van transitie animaties?
