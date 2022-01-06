@@ -1,3 +1,7 @@
+// TODO toch oude approach
+
+// TODO clean up this readme
+
 # Compose Navigation triggered from ViewModel
 
 // TODO currently old events are overwritten, that's state....
@@ -7,12 +11,17 @@ An example app build with Jetpack Compose in which navigation is triggered from 
 This example abstracts away navigation logic to centralized classes. This example uses **state** to
 navigate, but one could use events if prefered.
 
-## Alternative
+## Alternatives
 
-An alternative to `ViewModel` controller navigation, is to let the `View` control navigation.
-However, that would often mean that the view must wait on the `ViewModel` to finish something async
-before navigating. It requires extra logic and gives too much power to the `View` resulting in a
-state of thruth that lies inbetween `ViewModel` and View, instead of solely in the `ViewModel`.
+1. View in Charge
+   An alternative to `ViewModel` controller navigation, is to let the `View` control navigation.
+   However, that would often mean that the view must wait on the `ViewModel` to finish something async
+   before navigating. It requires extra logic and gives too much power to the `View` resulting in a
+   state of thruth that lies inbetween `ViewModel` and View, instead of solely in the `ViewModel`.
+
+2. Singleton Navigation Manager
+   Joe Birch [describes a singleton navigation manager]("https://medium.com/google-developer-experts/modular-navigation-with-jetpack-compose-fda9f6b2bef7") and that was also my first approach.
+   It works, because Jetpack Compose Navigation implementations usually uses a single `navController`. Also, the singelton implementation is simpler. However, a vulnerability of this singleton navigator is that any ViewModel in the backstack can trigger navigation, for example after an async action finishes. The ViewModel might not be the one displaying the current view, it can still trigger navigation. It is easy to make mistakes here, or create strange, hard to find bugs.
 
 ## In this example
 
