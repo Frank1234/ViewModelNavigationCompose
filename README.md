@@ -1,27 +1,31 @@
 # Compose Navigation triggered from ViewModel
 
-An tiny example app build with Jetpack Compose in which navigation is triggered from the `ViewModel`.
+An tiny example app build with Jetpack Compose in which navigation is triggered from the `ViewModel`
+.
 
-This example abstracts away most navigation logic from the `View` and `ViewModel`. This example uses state to
-navigate, but one could use events if prefered.
+This example abstracts away most navigation logic from the `View` and `ViewModel`. This example uses
+state to navigate, but one could use events if prefered.
 
 ## Alternatives
 
-#### Singleton Navigation Manager 
-[Joe Birch describes a singleton navigation manager](https://medium.com/google-developer-experts/modular-navigation-with-jetpack-compose-fda9f6b2bef7). That implementation is simpler. However, a
-   vulnerability of this singleton navigator is that any ViewModel in the backstack can trigger
-   navigation, for example after an async action finishes. It is easy to cause hard to find bugs in this way.
+#### Singleton Navigation Manager
+
+[Joe Birch describes a singleton navigation manager](https://medium.com/google-developer-experts/modular-navigation-with-jetpack-compose-fda9f6b2bef7)
+. That implementation is simpler. However, a vulnerability of this singleton navigator is that any
+ViewModel in the backstack can trigger navigation, for example after an async action finishes. It is
+easy to cause hard to find bugs in this way.
 
 #### View in Charge
-An alternative to `ViewModel` controller navigation, is to let the `View` control
-   navigation. However, that would often mean that the view must wait on the `ViewModel` to finish
-   something async before navigating. It results in a state of thruth that lies inbetween `ViewModel` and View, instead of solely in
-   the `ViewModel`.
+
+An alternative to `ViewModel` controller navigation, is to let the `View` control navigation.
+However, that would often mean that the view must wait on the `ViewModel` to finish something async
+before navigating. It results in a state of thruth that lies inbetween `ViewModel` and View, instead
+of solely in the `ViewModel`.
 
 ## In this example
 
-This example implements logic so that the `ViewModel` can call `navigate(route)` and `popUpto()` to
-navigate using state.
+This example implements logic so that the `ViewModel` can call `navigate(route)`, `navigateUp()`
+and `popUpto(route)` to navigate using state.
 
 ## Events up, state down
 

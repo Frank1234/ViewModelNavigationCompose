@@ -6,8 +6,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.navArgument
-import nl.frank.vmnc.ui.main.KEY_MAIN_PAGE_INDEX
 import nl.frank.vmnc.ui.main.MainPageRoute
 
 @Composable
@@ -18,11 +16,9 @@ fun NavigationComponent(navHostController: NavHostController, paddingValues: Pad
         modifier = Modifier.padding(paddingValues)
     ) {
         MainPageRoute.composable(
-            this, navHostController,
-            arguments = listOf(navArgument(KEY_MAIN_PAGE_INDEX) {
-                defaultValue = 0
-                // note that only the start destination needs arguments in this way, because it needs a default
-            })
+            this,
+            navHostController,
+            MainPageRoute.getNamedNavArgument() // arguments are only needed on the startDestination of the app
         )
     }
 }

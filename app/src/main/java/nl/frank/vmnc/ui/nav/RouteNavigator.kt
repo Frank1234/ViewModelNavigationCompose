@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
  */
 interface RouteNavigator {
     fun onNavigated(state: NavigationState)
+    fun navigateUp()
     fun popToRoute(route: String)
     fun navigateToRoute(route: String)
 
@@ -30,6 +31,8 @@ class MyRouteNavigator : RouteNavigator {
     }
 
     override fun popToRoute(route: String) = navigate(NavigationState.PopToRoute(route))
+
+    override fun navigateUp() = navigate(NavigationState.Pop())
 
     override fun navigateToRoute(route: String) = navigate(NavigationState.NavigateToRoute(route))
 

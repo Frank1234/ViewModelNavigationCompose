@@ -31,6 +31,10 @@ class MainPageViewModel @Inject constructor(
         navigateToNextPage()
     }
 
+    fun onPopClicked() {
+        navigateUp()
+    }
+
     fun onNextWithDelayClicked() {
         viewModelScope.launch {
             delay(4000)

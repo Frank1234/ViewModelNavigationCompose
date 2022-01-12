@@ -14,6 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.SavedStateHandle
+import androidx.navigation.navArgument
 import nl.frank.vmnc.R
 import nl.frank.vmnc.ui.nav.NavRoute
 import nl.frank.vmnc.ui.nav.getOrThrow
@@ -24,6 +25,13 @@ import nl.frank.vmnc.ui.nav.getOrThrow
  * Inherits NavRoute, to be able to navigate away from this screen. All navigation logic is in there.
  */
 object MainPageRoute : NavRoute<MainPageViewModel> {
+
+    /**
+     * Returns the NamedNavArguments for this screen. Only needed on the app's start destination.
+     */
+    fun getNamedNavArgument() = listOf(navArgument(KEY_MAIN_PAGE_INDEX) {
+        defaultValue = 0
+    })
 
     data class Arguments(val index: Int)
 
@@ -86,6 +94,15 @@ fun MainPage(
         ) {
             Text(
                 text = stringResource(R.string.button_next),
+                style = MaterialTheme.typography.button,
+            )
+        }
+        Button(
+            onClick = viewModel::onPopClicked,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(
+                text = stringResource(R.string.button_pop),
                 style = MaterialTheme.typography.button,
             )
         }
