@@ -11,7 +11,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.SavedStateHandle
-import androidx.navigation.navArgument
 import nl.frank.vmnc.R
 import nl.frank.vmnc.ui.nav.NavRoute
 import nl.frank.vmnc.ui.nav.getOrThrow
@@ -25,14 +24,7 @@ import nl.frank.vmnc.ui.views.PrimaryButton
 object MainPageRoute : NavRoute<MainPageViewModel> {
 
     /**
-     * Returns the NamedNavArguments for this screen. Only needed on the app's start destination.
-     */
-    fun getNamedNavArgument() = listOf(navArgument(KEY_MAIN_PAGE_INDEX) {
-        defaultValue = Arguments(0).index
-    })
-
-    /**
-     * Arguments to use when opening this page. Used to make them more strongly typed.
+     * Arguments to use when opening this page. Used to make the arguments more strongly typed.
      */
     data class Arguments(val index: Int)
 
