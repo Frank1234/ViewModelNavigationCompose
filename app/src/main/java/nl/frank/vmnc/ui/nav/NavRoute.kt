@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -14,9 +15,15 @@ interface NavRoute<T : RouteNavigator> {
 
     val route: String
 
+    /**
+     * Returns the screen's content.
+     */
     @Composable
     fun Content(viewModel: T)
 
+    /**
+     * Returns the screen's ViewModel. Needs to be overridden so that Hilt can generate code for the factory for the ViewModel class.
+     */
     @Composable
     fun viewModel(): T
 
@@ -26,7 +33,7 @@ interface NavRoute<T : RouteNavigator> {
     fun composable(
         builder: NavGraphBuilder,
         navHostController: NavHostController,
-        arguments: List<NamedNavArgument> = listOf()
+        arguments: List<NamedNavArgument>
     ) {
         builder.composable(route, arguments) {
             val viewModel = viewModel()
@@ -45,17 +52,17 @@ interface NavRoute<T : RouteNavigator> {
      * Navigates to viewState.
      */
     private fun updateNavigationState(
-        navHostController: NavHostController?,
+        navHostController: NavHostController,
         navigationState: NavigationState,
         onNavigated: (navState: NavigationState) -> Unit,
     ) {
         when (navigationState) {
             is NavigationState.NavigateToRoute -> {
-                navHostController?.navigate(navigationState.route)
+                navHostController.navigate(navigationState.route)
                 onNavigated(navigationState)
             }
             is NavigationState.PopToRoute -> {
-                navHostController?.popBackStack(navigationState.staticRoute, false)
+                navHostController.popBackStack(navigationState.staticRoute, false)
                 onNavigated(navigationState)
             }
             is NavigationState.Idle -> {
@@ -63,3 +70,7 @@ interface NavRoute<T : RouteNavigator> {
         }
     }
 }
+
+fun <T> SavedStateHandle.getOrThrow(key: String): T = get<T>(key) ?: throw IllegalArgumentException(
+    "Mandatory argument $key missing in arguments."
+)

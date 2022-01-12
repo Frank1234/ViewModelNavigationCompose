@@ -13,8 +13,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.SavedStateHandle
 import nl.frank.vmnc.R
 import nl.frank.vmnc.ui.nav.NavRoute
+import nl.frank.vmnc.ui.nav.getOrThrow
 
 /**
  * Every screen has a route, so that we don't have to add the route setup of all screens to the [NavigationComponent].
@@ -23,15 +25,28 @@ import nl.frank.vmnc.ui.nav.NavRoute
  */
 object MainPageRoute : NavRoute<MainPageViewModel> {
 
+    data class Arguments(val index: Int)
+
     override val route = "mainPage/{$KEY_MAIN_PAGE_INDEX}/"
+
+    /**
+     * Returns the route that can be used for navigating to this page.
+     */
+    fun get(arguments: Arguments): String =
+        route.replace("{$KEY_MAIN_PAGE_INDEX}", "${arguments.index}")
+
+    /**
+     * Returns the Arguments from savedStateHandle for this page. Done here to centralize the arguments logic for this page.
+     */
+    fun getArguments(savedStateHandle: SavedStateHandle) = Arguments(
+        index = savedStateHandle.getOrThrow(KEY_MAIN_PAGE_INDEX)
+    )
 
     @Composable
     override fun viewModel(): MainPageViewModel = hiltViewModel()
 
     @Composable
     override fun Content(viewModel: MainPageViewModel) = MainPage(viewModel)
-
-    fun get(index: Int) = route.replace("{$KEY_MAIN_PAGE_INDEX}", "$index")
 }
 
 /**

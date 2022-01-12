@@ -8,7 +8,8 @@ import kotlinx.coroutines.flow.StateFlow
  */
 interface RouteNavigator {
     fun onNavigated(state: NavigationState)
-    fun navigate(state: NavigationState)
+    fun popToRoute(route: String)
+    fun navigateToRoute(route: String)
 
     val navigationState: StateFlow<NavigationState>
 }
@@ -16,10 +17,9 @@ interface RouteNavigator {
 class MyRouteNavigator : RouteNavigator {
 
     /**
-     * Note that I'm using a single state here, and not a list of states.
-     *
-     * As a result, if you quickly update the state multiple times, the view will only receive
-     * and handle the latest state, which is fine for my use case.
+     * Note that I'm using a single state here, not a list of states. As a result, if you quickly
+     * update the state multiple times, the view will only receive and handle the latest state,
+     * which is fine for my use case.
      */
     override val navigationState: MutableStateFlow<NavigationState> =
         MutableStateFlow(NavigationState.Idle)
@@ -29,7 +29,11 @@ class MyRouteNavigator : RouteNavigator {
         navigationState.compareAndSet(state, NavigationState.Idle)
     }
 
-    override fun navigate(state: NavigationState) {
+    override fun popToRoute(route: String) = navigate(NavigationState.PopToRoute(route))
+
+    override fun navigateToRoute(route: String) = navigate(NavigationState.NavigateToRoute(route))
+
+    private fun navigate(state: NavigationState) {
         navigationState.value = state
     }
 }

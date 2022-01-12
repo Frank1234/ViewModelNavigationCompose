@@ -21,7 +21,8 @@ fun NavigationComponent(navHostController: NavHostController, paddingValues: Pad
             this, navHostController,
             arguments = listOf(navArgument(KEY_MAIN_PAGE_INDEX) {
                 defaultValue = 0
-            }) // arguments are only added here to set a default for the app's start destination
+                // note that only the start destination needs arguments in this way, because it needs a default
+            })
         )
     }
 }

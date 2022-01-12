@@ -1,5 +1,3 @@
-// TODO check proper argument handling
-
 # Compose Navigation triggered from ViewModel
 
 An example app build with Jetpack Compose in which navigation is triggered from the ViewModel.
