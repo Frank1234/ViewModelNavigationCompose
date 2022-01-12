@@ -65,12 +65,16 @@ interface NavRoute<T : RouteNavigator> {
                 navHostController.popBackStack(navigationState.staticRoute, false)
                 onNavigated(navigationState)
             }
+            is NavigationState.NavigateUp -> {
+                navHostController.navigateUp()
+            }
             is NavigationState.Idle -> {
             }
         }
     }
 }
 
-fun <T> SavedStateHandle.getOrThrow(key: String): T = get<T>(key) ?: throw IllegalArgumentException(
-    "Mandatory argument $key missing in arguments."
-)
+fun <T> SavedStateHandle.getOrThrow(key: String): T =
+    get<T>(key) ?: throw IllegalArgumentException(
+        "Mandatory argument $key missing in arguments."
+    )

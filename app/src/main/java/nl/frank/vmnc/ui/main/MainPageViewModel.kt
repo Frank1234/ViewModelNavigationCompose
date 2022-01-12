@@ -14,24 +14,30 @@ import javax.inject.Inject
 
 const val KEY_MAIN_PAGE_INDEX = "MAIN_PAGE_INDEX"
 
+data class MainPageViewState(
+    val title: String,
+    val counterValue: Int,
+    val showPopButton: Boolean,
+)
+
 @HiltViewModel
 class MainPageViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val routeNavigator: RouteNavigator,
 ) : ViewModel(), RouteNavigator by routeNavigator { // I strongly prefer delegation over inheritance
 
-    private val index = MainPageRoute.getArguments(savedStateHandle).index
+    private val arguments = MainPageRoute.getArgumentsFrom(savedStateHandle)
+    private val index = arguments.index
 
-    var titleViewState by mutableStateOf("Page $index")
-        private set
-    var counterViewState by mutableStateOf(0)
-        private set
+    var viewState by mutableStateOf(
+        MainPageViewState(title = "Page $index", counterValue = 0, showPopButton = index != 0)
+    )
 
     fun onNextClicked() {
         navigateToNextPage()
     }
 
-    fun onPopClicked() {
+    fun onUpClicked() {
         navigateUp()
     }
 
@@ -47,6 +53,6 @@ class MainPageViewModel @Inject constructor(
     }
 
     fun onIncreaseCounterClicked() {
-        counterViewState++
+        viewState = viewState.copy(counterValue = viewState.counterValue + 1)
     }
 }

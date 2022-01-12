@@ -3,5 +3,5 @@
     <string name="button_next_with_delay">Next with delay</string>
     <string name="button_next">Next</string>
     <string name="button_increase_counter">Increase counter value</string>
-    <string name="button_pop">Pop</string>
+    <string name="button_up">Navigate up</string>
 </resources>

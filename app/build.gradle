@@ -50,6 +50,15 @@ android {
     }
 }
 
+kotlin {
+    sourceSets.all {
+        languageSettings {
+            languageVersion = '1.6'
+            progressiveMode = true // false by default, enables errors on exhaustive-whens
+        }
+    }
+}
+
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'

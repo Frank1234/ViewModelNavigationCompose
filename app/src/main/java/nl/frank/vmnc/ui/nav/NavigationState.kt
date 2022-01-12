@@ -19,5 +19,5 @@ sealed class NavigationState {
     data class PopToRoute(val staticRoute: String, val id: String = UUID.randomUUID().toString()) :
         NavigationState()
 
-    data class Pop(val id: String = UUID.randomUUID().toString()) : NavigationState()
+    data class NavigateUp(val id: String = UUID.randomUUID().toString()) : NavigationState()
 }

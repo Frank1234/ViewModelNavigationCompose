@@ -32,7 +32,7 @@ class MyRouteNavigator : RouteNavigator {
 
     override fun popToRoute(route: String) = navigate(NavigationState.PopToRoute(route))
 
-    override fun navigateUp() = navigate(NavigationState.Pop())
+    override fun navigateUp() = navigate(NavigationState.NavigateUp())
 
     override fun navigateToRoute(route: String) = navigate(NavigationState.NavigateToRoute(route))
 
