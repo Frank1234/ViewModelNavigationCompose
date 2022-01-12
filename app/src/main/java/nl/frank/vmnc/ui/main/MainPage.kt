@@ -24,7 +24,7 @@ import nl.frank.vmnc.ui.views.PrimaryButton
 object MainPageRoute : NavRoute<MainPageViewModel> {
 
     /**
-     * Arguments to use when opening this page. Used to make the arguments more strongly typed.
+     * Arguments to use when opening this page. This is used to make the arguments more strongly typed.
      */
     data class Arguments(val index: Int)
 
