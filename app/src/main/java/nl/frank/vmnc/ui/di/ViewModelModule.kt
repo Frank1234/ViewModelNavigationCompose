@@ -1,4 +1,4 @@
-package nl.frank.vmnc.ui.vm.di
+package nl.frank.vmnc.ui.di
 
 import dagger.Module
 import dagger.Provides
