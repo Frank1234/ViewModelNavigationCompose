@@ -32,7 +32,7 @@ object MainPageRoute : NavRoute<MainPageViewModel> {
     })
 
     /**
-     * Strong typed arguments 💪.
+     * Arguments to use when opening this page. Used to make them more strongly typed.
      */
     data class Arguments(val index: Int)
 
