@@ -11,6 +11,9 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 
+/**
+ * A route the app can navigate to.
+ */
 interface NavRoute<T : RouteNavigator> {
 
     val route: String
@@ -28,14 +31,20 @@ interface NavRoute<T : RouteNavigator> {
     fun viewModel(): T
 
     /**
+     * Override when this page uses arguments.
+     *
+     * We do it here and not in the [NavigationComponent to keep it centralized]
+     */
+    fun getArguments(): List<NamedNavArgument> = listOf()
+
+    /**
      * Generates the composable for this route.
      */
     fun composable(
         builder: NavGraphBuilder,
-        navHostController: NavHostController,
-        arguments: List<NamedNavArgument>
+        navHostController: NavHostController
     ) {
-        builder.composable(route, arguments) {
+        builder.composable(route, getArguments()) {
             val viewModel = viewModel()
             val viewStateAsState by viewModel.navigationState.collectAsState()
 

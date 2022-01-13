@@ -4,4 +4,6 @@
     <string name="button_next">Next</string>
     <string name="button_increase_counter">Increase counter value</string>
     <string name="button_up">Navigate up</string>
+    <string name="button_start">Open content pages</string>
+    <string name="home_title">Welcome Home</string>
 </resources>

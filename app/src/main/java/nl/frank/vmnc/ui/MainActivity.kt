@@ -1,4 +1,4 @@
-package nl.frank.vmnc
+package nl.frank.vmnc.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

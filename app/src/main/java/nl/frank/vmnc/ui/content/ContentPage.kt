@@ -1,4 +1,4 @@
-package nl.frank.vmnc.ui.main
+package nl.frank.vmnc.ui.content
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,51 +11,49 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.SavedStateHandle
+import androidx.navigation.NamedNavArgument
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import nl.frank.vmnc.R
 import nl.frank.vmnc.ui.nav.NavRoute
 import nl.frank.vmnc.ui.nav.getOrThrow
 import nl.frank.vmnc.ui.views.PrimaryButton
+
+const val KEY_CONTENT_PAGE_INDEX = "CONTENT_PAGE_INDEX"
 
 /**
  * Every screen has a route, so that we don't have to add the route setup of all screens to the [NavigationComponent].
  *
  * Inherits NavRoute, to be able to navigate away from this screen. All navigation logic is in there.
  */
-object MainPageRoute : NavRoute<MainPageViewModel> {
+object ContentPageRoute : NavRoute<ContentPageViewModel> {
 
-    /**
-     * Arguments to use when opening this page. This is used to make the arguments more strongly typed.
-     */
-    data class Arguments(val index: Int)
-
-    override val route = "mainPage/{$KEY_MAIN_PAGE_INDEX}/"
+    override val route = "content/{$KEY_CONTENT_PAGE_INDEX}/"
 
     /**
      * Returns the route that can be used for navigating to this page.
      */
-    fun get(arguments: Arguments): String =
-        route.replace("{$KEY_MAIN_PAGE_INDEX}", "${arguments.index}")
+    fun get(index: Int): String = route.replace("{$KEY_CONTENT_PAGE_INDEX}", "$index")
 
-    /**
-     * Returns this page's arguments as parsed from [SavedStateHandle]
-     */
-    fun getArgumentsFrom(savedStateHandle: SavedStateHandle) = Arguments(
-        index = savedStateHandle.getOrThrow(KEY_MAIN_PAGE_INDEX)
-    )
+    fun getIndexFrom(savedStateHandle: SavedStateHandle) =
+        savedStateHandle.getOrThrow<Int>(KEY_CONTENT_PAGE_INDEX)
+
+    override fun getArguments(): List<NamedNavArgument> = listOf(
+        navArgument(KEY_CONTENT_PAGE_INDEX) { type = NavType.IntType })
 
     @Composable
-    override fun viewModel(): MainPageViewModel = hiltViewModel()
+    override fun viewModel(): ContentPageViewModel = hiltViewModel()
 
     @Composable
-    override fun Content(viewModel: MainPageViewModel) = MainPage(viewModel)
+    override fun Content(viewModel: ContentPageViewModel) = ContentPage(viewModel)
 }
 
 /**
  * Just your average Composable, nothing special here.
  */
 @Composable
-fun MainPage(
-    viewModel: MainPageViewModel
+private fun ContentPage(
+    viewModel: ContentPageViewModel
 ) {
     val viewState = viewModel.viewState
 
@@ -76,11 +74,10 @@ fun MainPage(
             onClick = viewModel::onNextClicked,
             title = stringResource(R.string.button_next)
         )
-        if (viewState.showPopButton)
-            PrimaryButton(
-                onClick = viewModel::onUpClicked,
-                title = stringResource(R.string.button_up)
-            )
+        PrimaryButton(
+            onClick = viewModel::onUpClicked,
+            title = stringResource(R.string.button_up)
+        )
 
         Text(
             text = "Count ${viewState.counterValue}",

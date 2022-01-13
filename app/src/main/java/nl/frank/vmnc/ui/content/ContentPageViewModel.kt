@@ -1,4 +1,4 @@
-package nl.frank.vmnc.ui.main
+package nl.frank.vmnc.ui.content
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -12,25 +12,21 @@ import kotlinx.coroutines.launch
 import nl.frank.vmnc.ui.nav.RouteNavigator
 import javax.inject.Inject
 
-const val KEY_MAIN_PAGE_INDEX = "MAIN_PAGE_INDEX"
-
-data class MainPageViewState(
+data class ContentPageViewState(
     val title: String,
     val counterValue: Int,
-    val showPopButton: Boolean,
 )
 
 @HiltViewModel
-class MainPageViewModel @Inject constructor(
+class ContentPageViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val routeNavigator: RouteNavigator,
-) : ViewModel(), RouteNavigator by routeNavigator { // I strongly prefer delegation over inheritance
+) : ViewModel(), RouteNavigator by routeNavigator { // prefer delegation over inheritance
 
-    private val arguments = MainPageRoute.getArgumentsFrom(savedStateHandle)
-    private val index = arguments.index
+    private val index = ContentPageRoute.getIndexFrom(savedStateHandle)
 
     var viewState by mutableStateOf(
-        MainPageViewState(title = "Page $index", counterValue = 0, showPopButton = index != 0)
+        ContentPageViewState(title = "Page $index", counterValue = 0)
     )
 
     fun onNextClicked() {
@@ -49,7 +45,7 @@ class MainPageViewModel @Inject constructor(
     }
 
     private fun navigateToNextPage() {
-        navigateToRoute(MainPageRoute.get(MainPageRoute.Arguments(index + 1)))
+        navigateToRoute(ContentPageRoute.get(index + 1))
     }
 
     fun onIncreaseCounterClicked() {

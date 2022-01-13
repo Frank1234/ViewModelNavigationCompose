@@ -2,6 +2,9 @@ package nl.frank.vmnc.ui.nav
 
 import java.util.UUID
 
+/**
+ * State that can be used to trigger navigation.
+ */
 sealed class NavigationState {
 
     /**
