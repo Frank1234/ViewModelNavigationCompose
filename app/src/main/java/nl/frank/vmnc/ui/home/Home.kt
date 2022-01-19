@@ -27,7 +27,7 @@ object HomeRoute : NavRoute<HomeViewModel> {
     override fun viewModel(): HomeViewModel = hiltViewModel()
 
     @Composable
-    override fun Content(viewModel: HomeViewModel) = Home(viewModel)
+    override fun Content(viewModel: HomeViewModel) = Home(viewModel::onStartClicked)
 }
 
 /**
@@ -35,7 +35,7 @@ object HomeRoute : NavRoute<HomeViewModel> {
  */
 @Composable
 private fun Home(
-    viewModel: HomeViewModel
+    onStartClicked: () -> Unit
 ) {
 
     Column(
@@ -48,7 +48,7 @@ private fun Home(
             style = MaterialTheme.typography.h6,
         )
         PrimaryButton(
-            onClick = viewModel::onStartClicked,
+            onClick = onStartClicked,
             title = stringResource(R.string.button_start)
         )
     }
