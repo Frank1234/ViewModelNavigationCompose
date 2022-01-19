@@ -1,5 +1,6 @@
 package nl.frank.vmnc.ui.nav
 
+import androidx.annotation.VisibleForTesting
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -36,7 +37,8 @@ class MyRouteNavigator : RouteNavigator {
 
     override fun navigateToRoute(route: String) = navigate(NavigationState.NavigateToRoute(route))
 
-    private fun navigate(state: NavigationState) {
+    @VisibleForTesting
+    fun navigate(state: NavigationState) {
         navigationState.value = state
     }
 }
