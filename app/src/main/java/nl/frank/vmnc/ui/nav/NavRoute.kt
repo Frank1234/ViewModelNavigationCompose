@@ -58,7 +58,7 @@ interface NavRoute<T : RouteNavigator> {
     }
 
     /**
-     * Navigates to viewState.
+     * Navigates to [navigationState].
      */
     private fun updateNavigationState(
         navHostController: NavHostController,
